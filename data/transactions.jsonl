@@ -1,0 +1,4 @@
+{"id": "TX-2D41F1", "type": "income", "date": "2002-07-10", "amount": 10000, "category": "food", "memo": "", "tags": []}
+{"id": "TX-E3C8FB", "type": "expense", "date": "2002-07-10", "amount": 5000, "category": "rent", "memo": "", "tags": []}
+{"id": "TX-604A61", "type": "expense", "date": "2002-07-10", "amount": 1000, "category": "transport", "memo": "", "tags": []}
+{"id": "TX-1CC9FD", "type": "expense", "date": "2002-07-10", "amount": 5000, "category": "food", "memo": "", "tags": []}

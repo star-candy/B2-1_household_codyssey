@@ -133,9 +133,31 @@ def handle_exceptions(func):
     return wrapper
 ```
 - 매개변수로 기존 함수를 input -> wrapping된 새로운 함수를 return하는 방식
-- @wraps 데코레이터 통해 wrapping되더라도 기존 함수명을 기억하도록 함.
+    - @wraps 데코레이터 통해 wrapping되더라도 기존 함수명을 기억하도록 함. 
+- wrapper함수 내에서 원래 실행하려던 func 함수를 실행함 - 매개 변수로 개수가 정해지지 않은 가변인자를 받는다.
+    - *args = 여러 일반 인자를 tuple 형태로 받음 의미
+    - **kwargs = 여러 키-값 형태 인자를 dict 형태로 받음 의미
+- 과제 요구사항에 따라 catch된 에러는 exit1로 종료되도록 구성
 
 
+## 7. stream_transactions동작 방식 (yield와 return의 차이 이해)
+```python
+def stream_transactions(self) -> Generator[Transaction, None, None]:
+        with open(self.tx_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    data = json.loads(line)
+                    # 딕셔너리 데이터를 Transaction 객체로 만들어 반환합니다.
+                    yield Transaction(**data)
+```
+- def stream_transactions(self) -> Generator[Transaction, None, None]:
+    - 해당 함수는 제너레이터를 반환함을 의미한다.
+    - 제너레이터란? -> 데이터를 필요할때마다 하나씩 반환하는 특수 이터레이터 == yield
+        - 해당 함수가 반환할 값은 transaction이다.
+        - 외부에서 추가로 전달할 데이터는 없음을 의미 (None)
+        - yield로 전달할 데이터가 더이상 없을 경우 최종 반환값이 없음을 의미 (None)
 
-
-## 7. yield와 return의 차이 
+- yield Transaction(**data)
+    - dictionary형태로 받아온 data를 transaction객체로 구성 후 전달
+        - 딕셔너리 data에 **를 붙일경우 언패킹되어 키 값을 쪼개어 인자로 전달함
+        - ex. amount:1000 -> amount=1000
